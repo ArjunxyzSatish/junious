@@ -1,0 +1,24 @@
+#!/bin/sh
+
+filename=$1
+mkdir tmp Songs
+lines=`wc -l songlist | awk '{print $1}'`
+echo Found $lines songs in 'songlist'
+while read line; do
+	echo Looking for song: $line
+	query=${line// /+}
+	curl https://www.youtube.com/results?search_query=$query >> tmp/$query
+	cat tmp/$query | grep -o 'watch?v=[[:alnum:]_-]*' > tmp/tmp_links
+	counter=1
+	until [ $counter -eq 2 ]
+	do
+		read line;
+		echo Getting song: youtube.com/$line
+		songLink="http://www.youtube.com/$line"
+		((counter++))
+	done < tmp/tmp_links
+	cd Songs && youtube-dl --user-agent "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" -x --audio-format mp3 --prefer-ffmpeg $songLink && cd ..
+done < $filename
+echo Cleaning Up...
+rm -rf tmp
+echo Done!
