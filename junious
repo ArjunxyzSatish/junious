@@ -14,7 +14,7 @@ while read line; do
 	do
 		read line;
 		echo Getting song: youtube.com/$line
-		songLink="http://www.youtube.com/$line"
+		songLink="youtube.com/$line"
 		((counter++))
 	done < tmp/tmp_links
 	cd Songs && youtube-dl --user-agent "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" -x --audio-format mp3 --prefer-ffmpeg $songLink && cd ..
