@@ -27,4 +27,6 @@ It then passes the URL to youtube-dl to download the file. It uses the `-x` and 
 It also the `--user-agent` flag. I found that it doesn't work without this sometimes. More information on this can be found in the source code.
 
 ---
-# More features will be added soon.
+# Donations
+Consider Donating if you're feeling generous :) 
+[![PayPal Donation Link](blue.svg "PayPal Donation Link")](https://www.paypal.me/feedmeplsthx)
